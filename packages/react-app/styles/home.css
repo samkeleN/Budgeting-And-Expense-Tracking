@@ -1,7 +1,9 @@
 .home {
     width: 100%;
     height: 100%;
-    margin-top: -40px;
+
+    /*border: 2px solid black;*/
+>>>>>>> origin/sam
     margin-right: auto;
     margin-left: auto;
 }
@@ -16,15 +18,29 @@
     align-items: center;
 }
 
-.section-one h1 {
+.headerOne {
+    position: relative;
+>>>>>>> origin/sam
     font-size: 30px;
     font-weight: bold;
     color: brown;
     margin-bottom: 20px;
 }
 
-.section-one h2 {
+.section-one p {
+    /* border: 2px solid black; */
+>>>>>>> origin/sam
     font-size: 20px;
+    margin-right: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: whitesmoke;
+}
+
+.section-one h2 {
+    /* border: 2px solid black; */
+    font-size: 25px;
     font-weight: bold;
     color: black;
     margin: 0 10px;
@@ -32,10 +48,9 @@
 
 .section-two {
     width: 100%;
-    height: 500px; /* Adjust height as needed */
-    background-image: url('../images/background/sectionOne.jpeg');
-    background-size: cover;
-    background-position: center;
+    height: 400px;
+    background-size:auto;
+>>>>>>> origin/sam
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -45,17 +60,25 @@
 }
 
 .container-two {
-    width: 80%;
-    margin: 0 auto;
+
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
+    top: 40%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
 }
 
-.container-two h1 {
-    font-size: 30px;
+
+.container-two h2{
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 20px;
     font-weight: bold;
-    color: brown;
-    margin-bottom: 20px;
-}
+    color: #448EE4;
 
+}
 .container-two p {
     font-size: 20px;
     font-weight: bold;
@@ -65,101 +88,182 @@
 
 .section-three {
     width: 100%;
+
+=======
+    height: 400px;
+    background-size:auto;
     text-align: center;
-    padding: 50px 0;
-}
-
-.section-three h1 {
-    font-size: 30px;
-    font-weight: bold;
-    color: brown;
-    margin-bottom: 20px;
-}
-
-.section-three p {
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
-    margin: 0 10px;
-}
-
-.car-offers {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.car-item {
-    text-align: center;
-}
-
-.car-image {
-    width: 100%;
-    height: auto;
-    max-width: 300px;
-    display: block;
-    margin: 0 auto 10px;
-}
-
-.car-item button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-.car-item button:hover {
-    background-color: #0056b3;
-}
-.section-four {
-    width: 100%;
-    text-align: center;
-    padding: 50px 0;
+    /* border: 2px solid black; */
+    background-color: #448EE4;
 }
 
 .container-three {
-    width: 80%;
-    margin: 0 auto;
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
 }
 
-.container-three h1 {
+.container-three h1, h2{
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
     font-size: 30px;
     font-weight: bold;
-    color: brown;
-    margin-bottom: 20px;
+    color: white;
 }
 
-.container-three p {
+.container-three p{
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 20px;
+    color: white;
+}
+
+.section-four {
+    width: 100%;
+    height: 100px;
+    background-size:auto;
+    text-align: center;
+    /* border: 2px solid black; */
+    background-color: whitesmoke;
+}
+
+.container-four {
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
+    top: 50%; 
+    left: 50%;
+    font-weight: bold; 
+    font-size: 20px;
+    transform: translate(-50%, -50%); 
+}
+
+.main {
+    /* border: 2px solid black; */
+    width: 100%;
+    height: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -40px;
+}
+
+.headerField {
+    display: inline-block;
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+}
+
+.headerField h1 {
     font-size: 20px;
     font-weight: bold;
     color: black;
-    margin: 0 10px;
+    margin-right: 85px;
 }
 
-/* Media queries for mobile responsiveness */
-@media (max-width: 768px) {
-    .section-one, .section-two, .section-three {
-        height: auto;
-        padding: 20px 0;
-    }
-
-    .section-one h1, .section-one h2, .container-two h1, .container-two p, .section-three h1, .section-three p {
-        font-size: 18px;
-        padding: 0 10px;
-    }
-
-    .car-offers {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .car-image {
-        max-width: 80%;
-    }
-
-    .car-item button {
-        padding: 8px 15px;
-    }
+.budgets {
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: #448EE4;
+    text-align: center;
+    color: white;
+    width: 110px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
+
+.expenses {
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: #448EE4 1px solid;
+    text-align: center;
+    color:#448EE4;
+    width: 110px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
+.budgets:hover {
+    color: #448EE4;
+    background-color: white;
+    border: #448EE4 1px solid;
+}
+
+.header-container {
+    display: inline-block;
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid rgba(173, 172, 172, 0.075);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height: 100px;
+    background-color: whitesmoke;
+    border-radius: 20px;
+}
+
+.header-container h1 {
+    font-size: 20px;
+    font-weight:450;
+    color: black;
+    margin-right: 8px;
+    margin-left: 10px;
+    margin-top: 35px;
+}
+
+.header-container button {
+    border: 2px solid #448EE4;
+    margin-right: 10px;
+    margin-top: 30px;
+    height: 40px;
+    border-radius: 50%;
+    width: 40px;
+    color: #448EE4;
+}
+
+/**********************************/
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: #448EE4;
+}
+
+.modal-content input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 80%;
+    display: inline-block;
+}
+
+.modal-content button {
+    display: block;
+    margin: 5px;
+    padding: 5px 10px;
+    border: 2px solid #448EE4;
+    width: 100%;
+    border-radius: 30px;
+    color: #448EE4;
+}
+>>>>>>> origin/sam

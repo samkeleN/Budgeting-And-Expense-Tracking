@@ -5,10 +5,12 @@ import logo from "@/public/logo.png";
 import { useEffect, useState } from "react";
 import { useConnect } from "wagmi";
 import { injected } from "wagmi/connectors";
+import { useRouter } from "next/router";
 
 export default function Header() {
     const [hideConnectBtn, setHideConnectBtn] = useState(false);
     const { connect } = useConnect();
+    const router = useRouter();
 
     useEffect(() => {
         if (window.ethereum && window.ethereum.isMiniPay) {
@@ -16,6 +18,8 @@ export default function Header() {
             connect({ connector: injected({ target: "metaMask" }) });
         }
     }, []);
+
+    const currentPath = router.pathname;
 
     return (
         <Disclosure as="nav" className="bg-prosperity border-b border-black">
@@ -26,19 +30,11 @@ export default function Header() {
                             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                 {/* Mobile menu button */}
                                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-black focus:outline-none focus:ring-1 focus:ring-inset focus:rounded-none focus:ring-black">
-                                    <span className="sr-only">
-                                        Open main menu
-                                    </span>
+                                    <span className="sr-only">Open main menu</span>
                                     {open ? (
-                                        <XMarkIcon
-                                            className="block h-6 w-6"
-                                            aria-hidden="true"
-                                        />
+                                        <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                                     ) : (
-                                        <Bars3Icon
-                                            className="block h-6 w-6"
-                                            aria-hidden="true"
-                                        />
+                                        <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                                     )}
                                 </Disclosure.Button>
                             </div>
@@ -52,10 +48,20 @@ export default function Header() {
                                 </div>
                                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                                     <a
-                                        href="#"
-                                        className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                                        href="/home"
+                                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                                            currentPath === '/home' ? 'border-black' : 'border-transparent'
+                                        }`}
                                     >
                                         Home
+                                    </a>
+                                    <a
+                                        href="/main"
+                                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                                            currentPath === '/main' ? 'border-black' : 'border-transparent'
+                                        }`}
+                                    >
+                                        Budget
                                     </a>
                                 </div>
                             </div>
@@ -76,12 +82,22 @@ export default function Header() {
                         <div className="space-y-1 pt-2 pb-4">
                             <Disclosure.Button
                                 as="a"
-                                href="#"
-                                className="block border-l-4 border-black py-2 pl-3 pr-4 text-base font-medium text-black"
+                                href="/home"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    currentPath === '/home' ? 'border-black' : 'border-transparent'
+                                }`}
                             >
                                 Home
                             </Disclosure.Button>
-                            {/* Add here your custom menu elements */}
+                            <Disclosure.Button
+                                as="a"
+                                href="/main"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    currentPath === '/main' ? 'border-black' : 'border-transparent'
+                                }`}
+                            >
+                                Budget
+                            </Disclosure.Button>
                         </div>
                     </Disclosure.Panel>
                 </>
