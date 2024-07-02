@@ -7,7 +7,6 @@ interface Budget {
 
 const Main: React.FC = () => {
     const [budgets, setBudgets] = useState<Budget[]>([
-        { name: 'Entertainment', spent: 100 }
     ]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newBudgetName, setNewBudgetName] = useState('');
@@ -34,11 +33,6 @@ const Main: React.FC = () => {
         setNewBudgetAmount('');
     };
 
-    const deleteExpense = (index: number) => {
-        const newBudgets = budgets.filter((_, i) => i !== index);
-        setBudgets(newBudgets);
-    };
-
     return (
         <div className="main">
             <div className="headerField">
@@ -50,7 +44,7 @@ const Main: React.FC = () => {
             {budgets.map((budget, index) => (
                 <div className="header-container" key={index}>
                     <h1>{budget.name}</h1>
-                    <h1>Spent: ${budget.spent}</h1>
+                    <h1>0cUSD/{budget.spent}cUSD</h1>
                     <button onClick={() => deleteBudget(index)}>X</button>
                 </div>
             ))}
