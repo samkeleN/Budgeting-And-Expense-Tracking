@@ -1,0 +1,99 @@
+.App {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    height: 100px;
+  }
+  
+  input[type="file"] {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .image-preview {
+    margin: 20px 0;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .mint-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .mint-button:hover {
+    background-color: #218838;
+  }
+  
+  p {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  /* Responsive styles for mobile devices */
+@media (max-width: 768px) {
+  .App {
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  textarea {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .mint-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
