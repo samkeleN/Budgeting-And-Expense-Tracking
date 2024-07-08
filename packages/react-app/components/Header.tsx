@@ -56,12 +56,36 @@ export default function Header() {
                                         Home
                                     </a>
                                     <a
-                                        href="/main"
+                                        href="/marketplace"
                                         className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
-                                            currentPath === '/main' ? 'border-black' : 'border-transparent'
+                                            currentPath === '/marketplace' ? 'border-black' : 'border-transparent'
                                         }`}
                                     >
-                                        Budget
+                                        Marketplace
+                                    </a>
+                                    <a
+                                        href="/myCollection"
+                                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                                            currentPath === '/myCollection' ? 'border-black' : 'border-transparent'
+                                        }`}
+                                    >
+                                        MyCollection
+                                    </a>
+                                    <a
+                                        href="/create"
+                                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                                            currentPath === '/create' ? 'border-black' : 'border-transparent'
+                                        }`}
+                                    >
+                                        Create
+                                    </a>
+                                    <a
+                                        href="/giftCard"
+                                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                                            currentPath === '/giftCard' ? 'border-black' : 'border-transparent'
+                                        }`}
+                                    >
+                                        GiftCard
                                     </a>
                                 </div>
                             </div>
@@ -91,12 +115,39 @@ export default function Header() {
                             </Disclosure.Button>
                             <Disclosure.Button
                                 as="a"
-                                href="/main"
+                                href="/marketplace"
                                 className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
-                                    currentPath === '/main' ? 'border-black' : 'border-transparent'
+                                    currentPath === '/marketplace' ? 'border-black' : 'border-transparent'
                                 }`}
                             >
-                                Budget
+                                Marketplace
+                            </Disclosure.Button>
+                            <Disclosure.Button
+                                as="a"
+                                href="/myCollection"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    currentPath === '/myCollection' ? 'border-black' : 'border-transparent'
+                                }`}
+                            >
+                                MyCollection
+                            </Disclosure.Button>
+                            <Disclosure.Button
+                                as="a"
+                                href="/create"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    currentPath === '/create' ? 'border-black' : 'border-transparent'
+                                }`}
+                            >
+                                Create
+                            </Disclosure.Button>
+                            <Disclosure.Button
+                                as="a"
+                                href="/giftCard"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    currentPath === '/giftCard' ? 'border-black' : 'border-transparent'
+                                }`}
+                            >
+                                GiftCard
                             </Disclosure.Button>
                         </div>
                     </Disclosure.Panel>
