@@ -1,149 +1,149 @@
 .home {
     width: 100%;
     height: 100%;
-    /*border: 2px solid black;*/
     margin-right: auto;
     margin-left: auto;
 }
+
 .section-one {
     width: 100%;
     height: 500px;
     margin-top: -84px;
-    background-image: url('../images/background/sectionOne.jpeg');
-    background-size:auto;
-    text-align: center;
+    background-size: cover;
+    text-align: left;
+}
+.container-one {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+.text-content {
+    max-width: 50%;
+}
+
+.text-content h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: brown;
+    margin-top: 20px;
+}
+
+.text-content p {
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+    max-width: 100%;
 }
 
 .headerOne {
     position: relative;
     font-size: 30px;
     font-weight: bold;
-    /* border: 2px solid black; */
-    color:brown;
-    margin-top: 20px; 
-    margin-bottom: auto;  
-}
-
-.section-one p {
-    /* border: 2px solid black; */
-    font-size: 20px;
-    margin-right: auto;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    color: whitesmoke;
-}
-
-.section-one h2 {
-    /* border: 2px solid black; */
-    font-size: 25px;
-    font-weight: bold;
-    margin-right: auto;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    color: whitesmoke;
-}
-
-.container-one {
-    position:relative;
+    color: brown;
     margin-top: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+}
+
+.get-started-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.get-started-button:hover {
+    background-color: #0056b3;
 }
 
 .section-two {
     width: 100%;
     height: 400px;
-    background-size:auto;
+    background-size: cover;
     text-align: center;
-    /* border: 2px solid black; */
 }
 
 .container-two {
-    position:relative;
-    margin-right: auto;
-    margin-left: auto;
-    top: 40%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    position: relative;
+    margin: auto;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-
-.container-two h2{
-    position:relative;
-    margin-right: auto;
-    margin-left: auto;
+.container-two h2 {
+    margin: auto;
     font-size: 20px;
     font-weight: bold;
     color: #448EE4;
-
 }
+
 .container-two p {
-    /* border: 2px solid black; */
     font-size: 20px;
     font-weight: bold;
-    margin-right: auto;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin: 0 10px 10px;
     color: black;
 }
 
-.section-three {
-    width: 100%;
-    height: 400px;
-    background-size:auto;
-    text-align: center;
-    /* border: 2px solid black; */
-    background-color: #448EE4;
-}
-
-.container-three {
-    position:relative;
-    margin-right: auto;
-    margin-left: auto;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-}
-
-.container-three h1, h2{
-    position:relative;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-}
-
-.container-three p{
-    position:relative;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 20px;
-    color: white;
-}
 
 .section-four {
     width: 100%;
     height: 100px;
-    background-size:auto;
+    background-size: cover;
     text-align: center;
-    /* border: 2px solid black; */
     background-color: whitesmoke;
 }
 
 .container-four {
-    position:relative;
-    margin-right: auto;
-    margin-left: auto;
-    top: 50%; 
+    position: relative;
+    margin: auto;
+    top: 50%;
     left: 50%;
-    font-weight: bold; 
+    font-weight: bold;
     font-size: 20px;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .section-one {
+        height: auto;
+        padding: 20px;
+    }
+
+    .text-content {
+        max-width: 100%;
+    }
+
+    .right-image {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .headerOne {
+        font-size: 24px;
+    }
+
+    .section-one p,
+    .section-one h2 {
+        font-size: 18px;
+    }
+
+    .get-started-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .section-two,
+    .section-four {
+        height: auto;
+        padding: 20px;
+    }
+
+    .container-two h2,
+    .container-four {
+        font-size: 18px;
+    }
 }
