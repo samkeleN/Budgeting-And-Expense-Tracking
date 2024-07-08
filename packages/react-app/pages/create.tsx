@@ -1,77 +1,63 @@
+// Import necessary libraries
 import React, { useState } from 'react';
+import { ethers } from 'ethers'; // Import ethers.js
+// import GiftCardNFTABI from './GiftCardNFT.json'; // Replace with actual ABI file
+import GiftCardNFTABI from "../../hardhat/contracts/abi/GiftCardNFT.json";
 
-interface Budget {
-    name: string;
-    spent: string | number;
+// Replace with your contract address
+const contractAddress = '0x2772D4B0d461B832EE76c930182959e1378dDd76';
+
+// Initialize ethers.js provider
+let provider;
+if (typeof window !== 'undefined') {
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+}
+const signer = provider?.getSigner();
+
+// Create instance of the contract
+const contract = new ethers.Contract(contractAddress, GiftCardNFTABI, signer);
+
+function App() {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState('');
+  const [txHash, setTxHash] = useState<string>('');
+
+  const handleMint = async () => {
+    try {
+      const tx = await contract.safeMint(title, description, image);
+      await tx.wait();
+      setTxHash(tx.hash);
+      console.log('Transaction Hash:', tx.hash);
+    } catch (error) {
+      console.error('Error minting NFT:', error);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Mint a Gift Card NFT</h1>
+      <form onSubmit={(e) => { e.preventDefault(); handleMint(); }}>
+        <label>
+          Title:
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        </label>
+        <br />
+        <label>
+          Description:
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+        </label>
+        <br />
+        <label>
+          Image URL:
+          <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+        </label>
+        <br />
+        <button type="submit">Mint NFT</button>
+      </form>
+      {txHash && <p>Transaction Hash: {txHash}</p>}
+    </div>
+  );
 }
 
-const Main: React.FC = () => {
-    const [budgets, setBudgets] = useState<Budget[]>([
-    ]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newBudgetName, setNewBudgetName] = useState('');
-    const [newBudgetAmount, setNewBudgetAmount] = useState('');
-
-    const addBudget = () => {
-        const newBudget: Budget = { name: newBudgetName, spent: newBudgetAmount };
-        setBudgets([...budgets, newBudget]);
-        setIsModalOpen(false);
-        setNewBudgetName('');
-        setNewBudgetAmount('');
-    };
-
-    const deleteBudget = (index: number) => {
-        const newBudgets = budgets.filter((_, i) => i !== index);
-        setBudgets(newBudgets);
-    };
-
-    const addExpense = () => {
-        const newBudget: Budget = { name: newBudgetName, spent: newBudgetAmount };
-        setBudgets([...budgets, newBudget]);
-        setIsModalOpen(false);
-        setNewBudgetName('');
-        setNewBudgetAmount('');
-    };
-
-    return (
-        <div className="main">
-            <div className="headerField">
-                <h1>Budgets</h1>
-                <button className="budgets" onClick={() => setIsModalOpen(true)}>Add Budget</button>
-                <button className="expenses" onClick={addExpense}>Add Expense</button>
-            </div>
-
-            {budgets.map((budget, index) => (
-                <div className="header-container" key={index}>
-                    <h1>{budget.name}</h1>
-                    <h1>0cUSD/{budget.spent}cUSD</h1>
-                    <button onClick={() => deleteBudget(index)}>X</button>
-                </div>
-            ))}
-
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <h2>Add New Budget</h2>
-                        <input
-                            type="text"
-                            value={newBudgetName}
-                            onChange={(e) => setNewBudgetName(e.target.value)}
-                            placeholder="Enter budget name"
-                        />
-                        <input
-                            type="number"
-                            value={newBudgetAmount}
-                            onChange={(e) => setNewBudgetAmount(e.target.value.toString())}
-                            placeholder="Maximum amount to spend"
-                        />
-                        <button onClick={addBudget}>Add</button>
-                        <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-}
-
-export default Main;
+export default App;
