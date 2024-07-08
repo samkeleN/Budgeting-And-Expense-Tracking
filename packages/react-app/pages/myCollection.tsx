@@ -1,77 +1,64 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import GiftCardNFT from "../../hardhat/contracts/abi/GiftCardNFT.json";
 
-interface Budget {
-    name: string;
-    spent: string | number;
+const contractAddress = "0x2772D4B0d461B832EE76c930182959e1378dDd76";
+
+interface Giftcard {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  owner: string;
 }
 
-const Main: React.FC = () => {
-    const [budgets, setBudgets] = useState<Budget[]>([
-    ]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newBudgetName, setNewBudgetName] = useState('');
-    const [newBudgetAmount, setNewBudgetAmount] = useState('');
+const Home = () => {
+  const [giftcards, setGiftcards] = useState<Giftcard[]>([]);
 
-    const addBudget = () => {
-        const newBudget: Budget = { name: newBudgetName, spent: newBudgetAmount };
-        setBudgets([...budgets, newBudget]);
-        setIsModalOpen(false);
-        setNewBudgetName('');
-        setNewBudgetAmount('');
+  useEffect(() => {
+    const fetchGiftcards = async () => {
+      if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const contract = new ethers.Contract(contractAddress, GiftCardNFT, provider);
+        try {
+          const giftcardCount = await contract.balanceOf(provider.getSigner().getAddress());
+          const promises: Promise<Giftcard>[] = [];
+          for (let i = 0; i < giftcardCount.toNumber(); i++) {
+            promises.push(
+              contract.getGiftcard(i).then((giftcard: Giftcard) => ({
+                ...giftcard,
+                id: i,
+              }))
+            );
+          }
+          const data = await Promise.all(promises);
+          setGiftcards(data);
+        } catch (error) {
+          console.error("Error fetching giftcards:", error);
+        }
+      }
     };
 
-    const deleteBudget = (index: number) => {
-        const newBudgets = budgets.filter((_, i) => i !== index);
-        setBudgets(newBudgets);
-    };
+    fetchGiftcards();
+  }, []);
 
-    const addExpense = () => {
-        const newBudget: Budget = { name: newBudgetName, spent: newBudgetAmount };
-        setBudgets([...budgets, newBudget]);
-        setIsModalOpen(false);
-        setNewBudgetName('');
-        setNewBudgetAmount('');
-    };
-
-    return (
-        <div className="main">
-            <div className="headerField">
-                <h1>Budgets</h1>
-                <button className="budgets" onClick={() => setIsModalOpen(true)}>Add Budget</button>
-                <button className="expenses" onClick={addExpense}>Add Expense</button>
+  return (
+    <div>
+      <main className="container mx-auto px-4">
+        <h1 className="text-2xl font-bold mt-8">Gift Cards</h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          {giftcards.map((giftcard) => (
+            <div key={giftcard.id} className="border p-4 rounded">
+              <h2 className="text-xl font-semibold">{giftcard.title}</h2>
+              <p>{giftcard.description}</p>
+              <img src={giftcard.image} alt={giftcard.title} className="w-full h-48 object-cover mt-2" />
+              <p className="mt-2">Owner: {giftcard.owner}</p>
             </div>
-
-            {budgets.map((budget, index) => (
-                <div className="header-container" key={index}>
-                    <h1>{budget.name}</h1>
-                    <h1>0cUSD/{budget.spent}cUSD</h1>
-                    <button onClick={() => deleteBudget(index)}>X</button>
-                </div>
-            ))}
-
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <h2>Add New Budget</h2>
-                        <input
-                            type="text"
-                            value={newBudgetName}
-                            onChange={(e) => setNewBudgetName(e.target.value)}
-                            placeholder="Enter budget name"
-                        />
-                        <input
-                            type="number"
-                            value={newBudgetAmount}
-                            onChange={(e) => setNewBudgetAmount(e.target.value.toString())}
-                            placeholder="Maximum amount to spend"
-                        />
-                        <button onClick={addBudget}>Add</button>
-                        <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-                    </div>
-                </div>
-            )}
+          ))}
         </div>
-    );
-}
+      </main>
+    </div>
+  );
+};
 
-export default Main;
+export default Home;
