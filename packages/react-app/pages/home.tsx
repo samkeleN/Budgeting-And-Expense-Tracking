@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ALO from '@/images/alo.png';
+
 
 const Home = () => {
     return ( 
         <div className="home">
+        
             <div className="section-one">
                 <div className="container-one">
                     <div className="text-content">
