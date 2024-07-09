@@ -1,8 +1,8 @@
 // Import necessary libraries
 import React, { useState } from 'react';
 import { ethers } from 'ethers'; // Import ethers.js
-// import GiftCardNFTABI from './GiftCardNFT.json'; // Replace with actual ABI file
-import GiftCardNFTABI from "../../hardhat/contracts/abi/GiftCardNFT.json";
+import GiftCardNFTABI from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json";
+
 
 // Replace with your contract address
 const contractAddress = '0x2772D4B0d461B832EE76c930182959e1378dDd76';
@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
 const signer = provider?.getSigner();
 
 // Create instance of the contract
-const contract = new ethers.Contract(contractAddress, GiftCardNFTABI, signer);
+const contract = new ethers.Contract(contractAddress, GiftCardNFTABI.abi, signer);
 
 function App() {
   const [title, setTitle] = useState('');

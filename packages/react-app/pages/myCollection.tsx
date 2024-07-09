@@ -1,64 +1,58 @@
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import GiftCardNFT from "../../hardhat/contracts/abi/GiftCardNFT.json";
+// ViewNFTs.tsx
 
-const contractAddress = "0x2772D4B0d461B832EE76c930182959e1378dDd76";
+import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import GiftCardNFTAbi from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json"; // Import the ABI JSON file
+
+const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 interface Giftcard {
-  id: number;
   title: string;
   description: string;
   image: string;
   owner: string;
 }
 
-const Home = () => {
+const ViewNFTs: React.FC = () => {
   const [giftcards, setGiftcards] = useState<Giftcard[]>([]);
 
   useEffect(() => {
-    const fetchGiftcards = async () => {
-      if (typeof window.ethereum !== "undefined") {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const contract = new ethers.Contract(contractAddress, GiftCardNFT, provider);
-        try {
-          const giftcardCount = await contract.balanceOf(provider.getSigner().getAddress());
-          const promises: Promise<Giftcard>[] = [];
-          for (let i = 0; i < giftcardCount.toNumber(); i++) {
-            promises.push(
-              contract.getGiftcard(i).then((giftcard: Giftcard) => ({
-                ...giftcard,
-                id: i,
-              }))
-            );
-          }
-          const data = await Promise.all(promises);
-          setGiftcards(data);
-        } catch (error) {
-          console.error("Error fetching giftcards:", error);
-        }
+    const fetchNFTs = async () => {
+      try {
+        const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+        await provider.send("eth_requestAccounts", []); // Request account access if needed
+        const signer = provider.getSigner(); // Get signer for transactions
+        const contract = new ethers.Contract(contractAddress, GiftCardNFTAbi.abi, signer);
+  
+        // Assuming totalSupply is a method in your contract, call it here
+        const totalSupply = await contract.totalSupply();
+        console.log("Total Supply:", totalSupply.toString());
+        
+        // Additional logic to fetch NFTs...
+      } catch (error) {
+        console.error("Error fetching NFTs:", error);
       }
     };
-
-    fetchGiftcards();
+  
+    fetchNFTs();
   }, []);
 
   return (
     <div>
-      <main className="container mx-auto px-4">
-        <h1 className="text-2xl font-bold mt-8">Gift Cards</h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          {giftcards.map((giftcard) => (
-            <div key={giftcard.id} className="border p-4 rounded">
-              <h2 className="text-xl font-semibold">{giftcard.title}</h2>
-              <p>{giftcard.description}</p>
-              <img src={giftcard.image} alt={giftcard.title} className="w-full h-48 object-cover mt-2" />
-              <p className="mt-2">Owner: {giftcard.owner}</p>
-            </div>
-          ))}
+      <h1>Minted NFTs</h1>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {giftcards.map((giftcard, index) => (
+          <div key={index} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
+            <h2>{giftcard.title}</h2>
+            <p>{giftcard.description}</p>
+            <img src={giftcard.image} alt={giftcard.title} style={{ maxWidth: "200px" }} /> 
+            <img src={giftcard.image} alt={giftcard.title} style={{ maxWidth: "100px" }} />
+          <p>Owner: {giftcard.owner}</p>
         </div>
-      </main>
+      ))}
     </div>
-  );
+  </div>
+);
 };
 
-export default Home;
+export default ViewNFTs;

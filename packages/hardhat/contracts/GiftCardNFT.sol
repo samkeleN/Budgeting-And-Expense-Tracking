@@ -27,7 +27,7 @@ contract GiftCardNFT is ERC721, Ownable {
         address payable owner
     );
 
-    constructor() ERC721("GiftCardNFT", "GCN") Ownable(msg.sender) {}
+    constructor() ERC721("GiftCardNFT", "GCN") Ownable() {}
 
     function safeMint(string memory _title, string memory _description, string memory _image) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
@@ -44,7 +44,7 @@ contract GiftCardNFT is ERC721, Ownable {
         _transfer(msg.sender, to, tokenId);
         giftcards[tokenId].owner = payable(to);
     }
-
+    
     function getGiftcard(uint256 tokenId) public view returns (Giftcard memory) {
         return giftcards[tokenId];
     }
