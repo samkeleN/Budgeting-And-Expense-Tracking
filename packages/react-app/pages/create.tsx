@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { ethers } from 'ethers'; // Import ethers.js
 import GiftCardNFTABI from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json";
 
-
-
 // Replace with your contract address
 const contractAddress = '0x2772D4B0d461B832EE76c930182959e1378dDd76';
 
@@ -21,28 +19,24 @@ const contract = new ethers.Contract(contractAddress, GiftCardNFTABI.abi, signer
 function App() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [txHash, setTxHash] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleMint = async () => {
     try {
-      const tx = await contract.safeMint(title, description, image);
+      if (!title || !description || !imageUrl) {
+        setErrorMessage('Please fill in all fields.');
+        return;
+      }
+
+      const tx = await contract.safeMint(title, description, imageUrl);
       await tx.wait();
       setTxHash(tx.hash);
       console.log('Transaction Hash:', tx.hash);
     } catch (error) {
       console.error('Error minting NFT:', error);
-    }
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result.toString());
-      };
-      reader.readAsDataURL(file);
+      setErrorMessage(`Error minting NFT: ${error.message}`);
     }
   };
 
@@ -61,14 +55,15 @@ function App() {
         </label>
         <br />
         <label>
-          Upload Image:
-          <input type="file" accept="image/*" onChange={handleImageUpload} required />
+          Image URL:
+          <input type="text" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required />
         </label>
         <br />
-        {image && <img src={image} alt="NFT Preview" className="image-preview" />}
+        {imageUrl && <img src={imageUrl} alt="NFT Preview" className="image-preview" />}
         <button type="submit" className="mint-button">Submit</button>
       </form>
       {txHash && <p>Transaction Hash: {txHash}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 }

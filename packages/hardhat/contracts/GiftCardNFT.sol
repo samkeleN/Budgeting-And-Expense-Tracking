@@ -13,7 +13,7 @@ contract GiftCardNFT is ERC721, Ownable {
     struct Giftcard {
         string title;
         string description;
-        string image;
+        string image;  // Store image reference
         address payable owner;
     }
 
