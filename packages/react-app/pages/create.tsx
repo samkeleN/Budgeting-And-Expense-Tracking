@@ -4,6 +4,7 @@ import { ethers } from 'ethers'; // Import ethers.js
 import GiftCardNFTABI from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json";
 
 
+
 // Replace with your contract address
 const contractAddress = '0x2772D4B0d461B832EE76c930182959e1378dDd76';
 
@@ -21,7 +22,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-  const [txHash, setTxHash] = useState<string>('');
+  const [txHash, setTxHash] = useState('');
 
   const handleMint = async () => {
     try {
@@ -31,6 +32,17 @@ function App() {
       console.log('Transaction Hash:', tx.hash);
     } catch (error) {
       console.error('Error minting NFT:', error);
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result.toString());
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -49,11 +61,12 @@ function App() {
         </label>
         <br />
         <label>
-          Image URL:
-          <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+          Upload Image:
+          <input type="file" accept="image/*" onChange={handleImageUpload} required />
         </label>
         <br />
-        <button type="submit">Mint NFT</button>
+        {image && <img src={image} alt="NFT Preview" className="image-preview" />}
+        <button type="submit" className="mint-button">Submit</button>
       </form>
       {txHash && <p>Transaction Hash: {txHash}</p>}
     </div>

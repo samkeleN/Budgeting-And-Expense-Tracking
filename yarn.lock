@@ -1003,7 +1003,7 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
-"@boilerplate/hardhat@file:C:\\Users\\samza\\Documents\\projects\\New folder\\Budgeting-And-Expense-Tracking\\packages\\hardhat":
+"@boilerplate/hardhat@file:C:\\Users\\Hlela\\OneDrive\\Documents\\MyStuff\\Budgeting-And-Expense-Tracking\\packages\\hardhat":
   version "1.0.0"
   resolved "file:packages/hardhat"
   dependencies:
@@ -1011,7 +1011,7 @@
     dotenv "^16.3.1"
     web3 "^4.10.0"
 
-"@boilerplate/react-app@file:C:\\Users\\samza\\Documents\\projects\\New folder\\Budgeting-And-Expense-Tracking\\packages\\react-app":
+"@boilerplate/react-app@file:C:\\Users\\Hlela\\OneDrive\\Documents\\MyStuff\\Budgeting-And-Expense-Tracking\\packages\\react-app":
   version "0.1.0"
   resolved "file:packages/react-app"
   dependencies:

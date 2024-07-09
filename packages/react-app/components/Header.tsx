@@ -87,6 +87,14 @@ export default function Header() {
                                     >
                                         GiftCard
                                     </a>
+                                    <a
+                                        href="/profile"
+                                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                                            currentPath === '/profile' ? 'border-black' : 'border-transparent'
+                                        }`}
+                                    >
+                                        Profile
+                                    </a>
                                 </div>
                             </div>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -148,6 +156,15 @@ export default function Header() {
                                 }`}
                             >
                                 GiftCard
+                            </Disclosure.Button>
+                            <Disclosure.Button
+                                as="a"
+                                href="/profile"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    currentPath === '/profile' ? 'border-black' : 'border-transparent'
+                                }`}
+                            >
+                                Profile
                             </Disclosure.Button>
                         </div>
                     </Disclosure.Panel>
