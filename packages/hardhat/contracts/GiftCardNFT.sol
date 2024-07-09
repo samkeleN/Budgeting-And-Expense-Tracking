@@ -44,7 +44,7 @@ contract GiftCardNFT is ERC721, Ownable {
         _transfer(msg.sender, to, tokenId);
         giftcards[tokenId].owner = payable(to);
     }
-    
+
     function getGiftcard(uint256 tokenId) public view returns (Giftcard memory) {
         return giftcards[tokenId];
     }
