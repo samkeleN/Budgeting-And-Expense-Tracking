@@ -4,7 +4,7 @@ import { ethers } from 'ethers'; // Import ethers.js
 import GiftCardNFTABI from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json";
 
 // Replace with your contract address
-const contractAddress = '0x2772D4B0d461B832EE76c930182959e1378dDd76';
+const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
 // Initialize ethers.js provider
 let provider;
@@ -34,7 +34,7 @@ function App() {
       await tx.wait();
       setTxHash(tx.hash);
       console.log('Transaction Hash:', tx.hash);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error minting NFT:', error);
       setErrorMessage(`Error minting NFT: ${error.message}`);
     }

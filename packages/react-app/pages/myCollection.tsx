@@ -1,58 +1,69 @@
-// ViewNFTs.tsx
+// Import necessary libraries
+import React, { useState, useEffect } from 'react';
+import { ethers } from 'ethers'; // Import ethers.js
+import GiftCardNFTABI from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json";
 
-import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import GiftCardNFTAbi from "../../hardhat/artifacts/contracts/GiftCardNFT.sol/GiftCardNFT.json"; // Import the ABI JSON file
+// Replace with your contract address
+const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
-const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-
-interface Giftcard {
-  title: string;
-  description: string;
-  image: string;
-  owner: string;
+// Initialize ethers.js provider
+let provider: ethers.providers.Web3Provider | undefined;
+if (typeof window !== 'undefined' && window.ethereum) {
+  provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
 }
 
-const ViewNFTs: React.FC = () => {
-  const [giftcards, setGiftcards] = useState<Giftcard[]>([]);
+const signer = provider?.getSigner();
+
+// Create instance of the contract
+const contract = new ethers.Contract(contractAddress, GiftCardNFTABI.abi, signer);
+
+function NFTCollection() {
+  const [nfts, setNfts] = useState<any[]>([]);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const fetchNFTs = async () => {
       try {
-        const provider = new ethers.providers.Web3Provider((window as any).ethereum);
-        await provider.send("eth_requestAccounts", []); // Request account access if needed
-        const signer = provider.getSigner(); // Get signer for transactions
-        const contract = new ethers.Contract(contractAddress, GiftCardNFTAbi.abi, signer);
-  
-        // Assuming totalSupply is a method in your contract, call it here
-        const totalSupply = await contract.totalSupply();
-        console.log("Total Supply:", totalSupply.toString());
-        
-        // Additional logic to fetch NFTs...
-      } catch (error) {
-        console.error("Error fetching NFTs:", error);
+        if (!signer) {
+          setError('Signer is not available');
+          return;
+        }
+        const address = await signer.getAddress();
+        const balance = await contract.balanceOf(address);
+        const nftPromises = [];
+
+        for (let i = 0; i < balance; i++) {
+          const tokenId = await contract.tokenOfOwnerByIndex(address, i);
+          const giftcard = await contract.getGiftcard(tokenId);
+          nftPromises.push(giftcard);
+        }
+
+        const nftData = await Promise.all(nftPromises);
+        setNfts(nftData);
+      } catch (error: any) {
+        console.error('Error fetching NFTs:', error);
+        setError(`Error fetching NFTs: ${error.message || error}`);
       }
     };
-  
+
     fetchNFTs();
-  }, []);
+  }, [signer]);
 
   return (
-    <div>
-      <h1>Minted NFTs</h1>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {giftcards.map((giftcard, index) => (
-          <div key={index} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
-            <h2>{giftcard.title}</h2>
-            <p>{giftcard.description}</p>
-            <img src={giftcard.image} alt={giftcard.title} style={{ maxWidth: "200px" }} /> 
-            <img src={giftcard.image} alt={giftcard.title} style={{ maxWidth: "100px" }} />
-          <p>Owner: {giftcard.owner}</p>
-        </div>
-      ))}
+    <div className="NFTCollection">
+      <h1>My NFT Collection</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="nft-grid">
+        {nfts.map((nft, index) => (
+          <div key={index} className="nft-card">
+            <img src={nft.image} alt={nft.title} />
+            <h2>{nft.title}</h2>
+            <p>{nft.description}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
-};
+  );
+}
 
-export default ViewNFTs;
+export default NFTCollection;
